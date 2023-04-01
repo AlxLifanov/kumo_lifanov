@@ -1,0 +1,16 @@
+@startuml
+participant PLC
+participant Receiver
+participant Buffer
+participant Sender #red
+actor Requester
+hnote across:Syncronous 
+PLC -> Receiver : Regular data
+Receiver -> Buffer : New event
+hnote across:Asyncronous 
+Requester -> Sender : KillData
+Sender -> Buffer : KillData
+Buffer -> Sender : empty
+Sender -> Requester : empty
+
+@endumls

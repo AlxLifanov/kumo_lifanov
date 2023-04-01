@@ -1,0 +1,16 @@
+@startuml
+actor IntEngineer
+actor ExtEngineer
+participant Authoriser
+participant Checker
+participant Updater
+
+alt
+IntEngineer -> Authoriser
+ExtEngineer -> Authoriser
+end
+
+Authoriser -> Checker
+Checker -> Updater
+
+@endumls

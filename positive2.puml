@@ -1,0 +1,19 @@
+@startuml
+actor IntEngineer
+actor ExtEngineer #yellow
+actor Hacker #red
+participant Authoriser #red
+participant Checker
+participant Updater
+
+hnote across:Prepare stage
+Hacker -[#red]> Authoriser : install\npw logger
+hnote across:Intercept stage
+ExtEngineer -> Authoriser : login + fw
+Authoriser -[#red]> Hacker : login\nintercept
+hnote across:Inject stage
+Hacker -[#red]> Authoriser : good login\n+ bad fw
+Authoriser -> Checker : login ok,\ncheck fw
+Checker -> Updater : fw ok,\nflash it
+
+@enduml

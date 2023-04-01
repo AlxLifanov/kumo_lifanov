@@ -1,0 +1,16 @@
+@startuml
+participant PLC
+participant Receiver
+participant Buffer
+participant Sender
+actor Requester
+hnote across:Syncronous 
+PLC -> Receiver : Regular data
+Receiver -> Buffer : New event
+hnote across:Asyncronous 
+Requester -> Sender : IsNewData?
+Sender -> Buffer : IsNewData?
+Buffer -> Sender : New data
+Sender -> Requester : New data
+
+@endumls
