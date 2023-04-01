@@ -1,0 +1,32 @@
+@startuml
+allowmixing
+
+package "Trusted_network" {
+  component PLC
+  actor IntEngineer
+}
+
+package "Design_scope" {
+  component Receiver
+  component Buffer
+  component Sender
+  component Authoriser
+  component Checker
+  component Updater
+}
+  PLC - Receiver
+  Receiver - Buffer
+  Buffer - Sender
+  Sender - Requester
+
+package "Ext_network" {
+actor Requester
+actor ExtEngineer
+}
+
+IntEngineer -right- Authoriser
+ExtEngineer -left- Authoriser
+Authoriser -down- Checker
+Checker -down- Updater
+
+@enduml
