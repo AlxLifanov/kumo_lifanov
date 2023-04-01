@@ -34,7 +34,7 @@
 
 ### Предварительная архитектура
 
-![](https://www.plantuml.com/plantuml/png/NP71RiCW38RlF8NLE-_GhUkXqWvJrvuhH1o2afWKp5AfwhkND4l6u8BzOPl_XsrWvJdsdL1TvyRUtYmP8GQbMsKGDYSV0sDr8UJH-NO3Tm6WNJyuGcBu-jobN6bs7Wx4UpAM4BruP2C-C5X3bw3TW6N_4JNQdzIGm_TOrmNwHgeAz1QvSTw60kyQr6t1paEb-ALg5RM_SUvfTd34QyGmLSvvAieSmUGMPAvv2HDTHSz18glcENXrBlFJofuBfBUcOPbxoku6sM7z__Gl15cvaUJg-tTVy69TR9E8wPkV)
+![](https://github.com/AlxLifanov/kumo_lifanov/blob/53298a824d546679cd7d31bbb449a2c20fb1161f/initial.png)
 
 ## Положительные сценарии
 ### Обновление и запрос данных
@@ -59,11 +59,13 @@
 |ExtEngineer|Обновление прошивки|Login + FW|Нет||
 |Receiver|Ведет обмен с ПЛК|Подтверждение ПЛК, новые данные в буфер (с превышением)|Данные от ПЛК|MM|
 |Buffer|Хранит события для Requester|События|Запросы только от Sender|MM|
-|Sender|Ведет обмен с Requester, обрабатывает только корректные запросы. Требует верификации.|События|Только запросы событий|SS|
+|Sender|Ведет обмен с Requester, обрабатывает только корректные запросы. Требует верификации. Можно выделить входной файрволл отдельно, если внешний протокол обмена сложный.|События|Только запросы событий|SS|
 |TLS Terminator|Обеспечивает неперехватываемость данных в канале|HTTP|HTTPS|CM|
 |Input sorter|Фильтрация HTTP-посылок|Файлы - только запись в Storage, данные авторизации - только запись в Authoriser|Raw HTTP|SS|
 |Authoriser|Проверка авторизованности пользователя|Если пользователь имеет право прошивки - машет флажком Checker|Login + password|SM|
-|FW storage|Хранение прошивки-кандидата|Прошивку по запросу Checker|Прошивку от сортера|MM|
+|FW storage|Хранение прошивки-кандидата|Прошивку по запросу Checker|Прошивку от сортера. Рассматривается как блоб, не парсится.|MM|
 |Checker|Проверяет подпись прошивки, если корректная - забирает из storage c удалением там и отдает в updater|Прошивку в Updater|Команду от авторизатора, прошивку из Storage|ML|
 
 Разметка сделана с точки зрения целостности данных.
+
+![](https://github.com/AlxLifanov/kumo_lifanov/blob/53298a824d546679cd7d31bbb449a2c20fb1161f/offer.png)
